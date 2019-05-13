@@ -11,6 +11,7 @@ const sounds = new Map([
     ['gzi-gzi', 'violin'],
     ['boum-boum', 'drum'],
 ]);
+
 const delay = 5000;
 var musicians = [];
 
@@ -62,5 +63,4 @@ const server = net.createServer(function(socket) {
     socket.pipe(socket);
     socket.end();
 });
-const PORT = 2205;
-server.listen(PORT);
+server.listen(2205);
