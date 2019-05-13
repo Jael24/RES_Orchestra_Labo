@@ -3,6 +3,7 @@ const dgram = require('dgram');
 const net = require('net');
 const moment = require('moment');
 const protocol = require('./sensor-protocol');
+const s = dgram.createSocket('udp4');
 
 const sounds = new Map([
     ['ti-ta-ti', 'piano'],
