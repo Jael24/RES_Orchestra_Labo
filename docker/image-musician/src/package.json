@@ -1,0 +1,13 @@
+{
+  "name": "teaching-heigvd-res-2019-labo-orchestra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Musician.js",
+  "scripts": {
+    "start": "node Musician.js"
+  },
+  "author": "Jael Dubey",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  }
+}
