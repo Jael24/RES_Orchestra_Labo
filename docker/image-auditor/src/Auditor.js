@@ -1,8 +1,8 @@
-const protocol = require('./sensor-protocol');
-const s = dgram.createSocket('udp4');
+/* eslint-disable no-console */
 const dgram = require('dgram');
 const net = require('net');
-
+const moment = require('moment');
+const protocol = require('./sensor-protocol');
 
 const sounds = new Map([
     ['ti-ta-ti', 'piano'],
@@ -12,13 +12,14 @@ const sounds = new Map([
     ['boum-boum', 'drum'],
 ]);
 
-const delay = 5000;
-var musicians = [];
+
 
 s.bind(protocol.PROTOCOL_PORT, function() {
   console.log("Joining multicast group");
   s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
+
+let musicians = [];
 
 s.on('message', function(msg, source) {
 	
@@ -29,8 +30,8 @@ s.on('message', function(msg, source) {
 	const instrument = sounds.get(parsedMsg.sound);
 	const activeSince = parsedMsg.activeSince;
 
-	for (let i = 0; i < musicians.length; i++) {
-		if (musicians[i].uuid == uuid) {
+	for (let i = 0; i < musicians.length; i += 1) {
+		if (musicians[i].uuid === uuid) {
 			musicians[i].instrument = instrument;
 			musicians[i].activeSince = activeSince;
 			return;
@@ -47,9 +48,9 @@ s.on('message', function(msg, source) {
 
 const server = net.createServer(function(socket) {
     const activeMusicians = [];
-    for (let i = 0; i < musicians.length; i++) {
+    for (let i = 0; i < musicians.length; i += 1) {
 
-        if (Date.now() - musicians[i].activeSince <= delay) {
+        if (Date.now() - musicians[i].activeSince <= 5000) {
             activeMusicians.push({
                 uuid: musicians[i].uuid,
                 instrument: musicians[i].instrument,

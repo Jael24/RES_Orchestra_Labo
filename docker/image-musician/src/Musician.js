@@ -1,7 +1,10 @@
-const protocol = require('./sensor-protocol');
+/*
+  Ce programme simule un musicien qui joue un son, qui dépend de son instrument
+*/
 const dgram = require('dgram');
-const s = dgram.createSocket('udp4');
+const moment = require('moment');
 const uuid = require('uuid');
+const protocol = require('./sensor-protocol');
 const instruments = new Map([
     ['piano', 'ti-ta-ti'],
     ['trumpet', 'pouet'],
@@ -9,6 +12,11 @@ const instruments = new Map([
     ['violin', 'gzi-gzi'],
     ['drum', 'boum-boum'],
 ]);
+
+/*
+ * Let's create a datagram socket. We will use it to send our UDP datagrams
+ */
+const s = dgram.createSocket('udp4');
 
 function Musician(instrument) {
 	
